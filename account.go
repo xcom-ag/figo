@@ -60,4 +60,7 @@ type Account struct {
 
 	// Status is the account's synchronization status
 	Status *Status `json:"status"`
+
+	// Balance last known account balance
+	Balance *Balance `json:"balance"`
 }

@@ -11,12 +11,16 @@ func TestGetAccounts(t *testing.T) {
 
 	accounts, err := s.GetAccounts()
 	if err != nil {
-		t.Errorf("get user failed: %v", err)
+		t.Errorf("get accounts failed: %v", err)
 		return
 	}
 
 	for _, acct := range accounts {
 		t.Logf("got account: %s (%s): %s %s", acct.AccountID, acct.Name, acct.IBAN, acct.BIC)
+		if acct.Balance != nil {
+			bal := acct.Balance
+			t.Logf("with balance: %s %f (%s)", acct.Currency, bal.Balance, bal.BalanceDate)
+		}
 	}
 
 }
