@@ -1,11 +1,6 @@
 package figo
 
-import (
-	"bytes"
-	"encoding/json"
-	"io/ioutil"
-	"net/http"
-)
+import "net/http"
 
 // BaseAPIEndpoint is the official API base URL
 const BaseAPIEndpoint = "https://api.figo.me"
@@ -27,48 +22,4 @@ func NewSession(accessToken string) *Session {
 		accessToken: accessToken,
 		hc:          &http.Client{},
 	}
-}
-
-// GetUser retrieves the current user
-func (s *Session) GetUser() (*User, error) {
-	req, err := http.NewRequest("GET", s.Endpoint+"/rest/user", nil)
-	if err != nil {
-		return nil, err
-	}
-	req.Header.Add("Accept", "application/json")
-	req.Header.Add("Authorization", "Bearer "+s.accessToken)
-
-	resp, err := s.hc.Do(req)
-	if err != nil {
-		return nil, err
-	}
-	defer resp.Body.Close()
-	buf, err := ioutil.ReadAll(resp.Body)
-	var u User
-	err = json.NewDecoder(bytes.NewReader(buf)).Decode(&u)
-	if err != nil {
-		return nil, err
-	}
-	return &u, nil
-}
-
-// GetAccounts retrieves all those bank accounts the user has chosen to share with your application
-func (s *Session) GetAccounts() ([]*Account, error) {
-	req, err := http.NewRequest("GET", s.Endpoint+"/rest/accounts", nil)
-	if err != nil {
-		return nil, err
-	}
-	req.Header.Add("Accept", "application/json")
-	req.Header.Add("Authorization", "Bearer "+s.accessToken)
-
-	resp, err := s.hc.Do(req)
-	if err != nil {
-		return nil, err
-	}
-	defer resp.Body.Close()
-	buf, err := ioutil.ReadAll(resp.Body)
-	var answer struct {
-		Accounts []*Account `json:'accounts'`
-	}
-	return answer.Accounts, json.NewDecoder(bytes.NewReader(buf)).Decode(&answer)
 }
