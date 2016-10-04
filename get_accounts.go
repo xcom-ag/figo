@@ -23,7 +23,7 @@ func (s *Session) GetAccounts() ([]*Account, error) {
 	defer resp.Body.Close()
 	buf, err := ioutil.ReadAll(resp.Body)
 	var answer struct {
-		Accounts []*Account `json:'accounts'`
+		Accounts []*Account `json:"accounts"`
 	}
 	return answer.Accounts, json.NewDecoder(bytes.NewReader(buf)).Decode(&answer)
 }
