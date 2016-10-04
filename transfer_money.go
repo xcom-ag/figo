@@ -27,7 +27,7 @@ func (s *Session) CreatePayment(p *Payment) (*Payment, error) {
 		return nil, err
 	}
 	defer resp.Body.Close()
-	buf, err := ioutil.ReadAll(resp.Body)
+	buf, _ := ioutil.ReadAll(resp.Body)
 	var n Payment
 	return &n, json.NewDecoder(bytes.NewReader(buf)).Decode(&n)
 }

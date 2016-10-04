@@ -21,7 +21,7 @@ func (s *Session) GetBalance(accountID string) (*Balance, error) {
 		return nil, err
 	}
 	defer resp.Body.Close()
-	buf, err := ioutil.ReadAll(resp.Body)
+	buf, _ := ioutil.ReadAll(resp.Body)
 	var b Balance
 	return &b, json.NewDecoder(bytes.NewReader(buf)).Decode(&b)
 }

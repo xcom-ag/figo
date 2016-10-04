@@ -21,7 +21,7 @@ func (s *Session) GetAccounts() ([]*Account, error) {
 		return nil, err
 	}
 	defer resp.Body.Close()
-	buf, err := ioutil.ReadAll(resp.Body)
+	buf, _ := ioutil.ReadAll(resp.Body)
 	var answer struct {
 		Accounts []*Account `json:"accounts"`
 	}
