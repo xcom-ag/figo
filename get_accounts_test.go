@@ -19,7 +19,10 @@ func TestGetAccounts(t *testing.T) {
 		t.Logf("got account: %s (%s): %s %s", acct.AccountID, acct.Name, acct.IBAN, acct.BIC)
 		if acct.Balance != nil {
 			bal := acct.Balance
-			t.Logf("with balance: %s %f (%s)", acct.Currency, bal.Balance, bal.BalanceDate)
+			t.Logf("    with balance: %s %f (%s)", acct.Currency, bal.Balance, bal.BalanceDate)
+		}
+		for _, ts := range acct.SupportedTANSchemes {
+			t.Logf("    with TANScheme: %s(%s): %s", ts.Name, ts.TANSchemeID, ts.MediumName)
 		}
 	}
 
