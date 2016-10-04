@@ -49,7 +49,7 @@ type Account struct {
 	// SupportedTANSchemes is a list of supported TAN schemes
 	SupportedTANSchemes []*SupportedTANSchema `json:"supported_tan_schemes"`
 
-	// PreferredTANScheme is the ID of the TAN scheme prefered by the user
+	// PreferredTANScheme is the ID of the TAN scheme preferred by the user
 	PreferredTANScheme string `json:"preferred_tan_scheme"`
 
 	// InTotalBalance indicates whether the balance of this account is added to the total balance of accounts
